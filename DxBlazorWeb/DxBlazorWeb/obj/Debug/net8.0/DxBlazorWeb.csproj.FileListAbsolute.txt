@@ -710,3 +710,4 @@ C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\obj\Debug\net8.0\refint\DxBlazorWe
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\obj\Debug\net8.0\DxBlazorWeb.pdb
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\obj\Debug\net8.0\DxBlazorWeb.genruntimeconfig.cache
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\obj\Debug\net8.0\ref\DxBlazorWeb.dll
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\obj\Debug\net8.0\DxBlazorWeb.sourcelink.json

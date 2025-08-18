@@ -27,8 +27,7 @@ namespace DxBlazorWeb.Services.Interface
         Task<bool> AddShippingConditionalAsync(ShippingConditional item);
         Task<bool> UpdateShippingConditionalAsync(ShippingConditional item);
         Task<bool> DeleteShippingConditionalAsync(string id);
-
-        //Task<List<Product>> GetAllProductsAsync();
+        
         //Task AddProductAsync(Product product);
 
         // ... tương tự cho các entity khác
