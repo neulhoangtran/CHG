@@ -33,6 +33,24 @@
         <DxGrid Data="ProductList" ShowFilterRow="false" PageSize="12" 
         ShowGroupPanel="false" ColumnResizeMode="GridColumnResizeMode.NextColumn">
             <Columns>
+                <DxGridDataColumn Caption="Thao tác" Width="160px">
+                    <CellDisplayTemplate Context="context">
+                        <DxButton Click="@(() => EditProduct((SanPham)context.DataItem))"
+                                  IconCssClass="fa fa-edit"
+                                  RenderStyle="ButtonRenderStyle.Secondary"
+                                  CssClass="me-1">
+                            Sửa
+                        </DxButton>
+
+                        <DxButton Click="@(() => DeleteProduct((SanPham)context.DataItem))"
+                                  IconCssClass="fa fa-trash"
+                                  RenderStyle="ButtonRenderStyle.Danger"
+                                  RenderStyleMode="ButtonRenderStyleMode.Outline">
+                            Xóa
+                        </DxButton>
+                    </CellDisplayTemplate>
+                </DxGridDataColumn>
+
                 <DxGridDataColumn FieldName="MA_SP" Caption="ID (MA_SP)" Width="260px" />
                 <DxGridDataColumn FieldName="TEN_SAN_PHAM" Caption="Tên sản phẩm" />
                 <DxGridDataColumn FieldName="MA_HANG"      Caption="Mã hàng" Width="140px" />
@@ -46,12 +64,15 @@
 
 <!-- Gọi modal -->
 <ProductModal @bind-Visible="isProductModalVisible"
-IsEdit="isEdit" />
+              EditItem="editItem"
+              OnSave="OnProductSaved"
+              IsEdit="isEdit" />
 
 @code {
     // state của modal
     private bool isProductModalVisible = false;
     private bool isEdit = false;
+    private SanPham? editItem = null;
     public List<SanPham> ProductList { set; get;  } = new();
     private void OpenCreateModal()
     {
@@ -59,15 +80,39 @@ IsEdit="isEdit" />
         isProductModalVisible = true;
     }
 
-    // Nhận kết quả lưu từ modal
     private async Task OnProductSaved(SanPham saved)
     {
         isProductModalVisible = false;
-        // TODO: refresh grid/danh sách sản phẩm nếu có
         await JSRuntime.InvokeVoidAsync("console.log", $"Saved product: {saved.MA_HANG}");
+
+        // Cập nhật lại danh sách nếu cần
+        ProductList = await ProductService.GetAllProductsAsync();
+        StateHasChanged();
     }
+
+
     protected override async Task OnInitializedAsync()
     {
         ProductList = await ProductService.GetAllProductsAsync();
     }
+    private async void EditProduct(SanPham item)
+    {
+        isEdit = true;
+        editItem = item;
+        isProductModalVisible = true;
+
+        await JSRuntime.InvokeVoidAsync("console.log", $"Edit: {item.MA_SP}");
+    }
+
+    private async void DeleteProduct(SanPham item)
+    {
+        bool confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"Bạn có chắc muốn xoá sản phẩm [{item.TEN_SAN_PHAM}]?");
+        if (confirm)
+        {
+            // await ProductService.DeleteProductAsync(item.MA_SP); cần triển khai
+            // ProductList = await ProductService.GetAllProductsAsync();
+            // StateHasChanged();
+        }
+    }
+
 }

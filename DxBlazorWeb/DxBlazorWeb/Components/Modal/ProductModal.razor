@@ -195,6 +195,9 @@ CloseOnOutsideClick="true">
     [Parameter] public bool Visible { get; set; }
     [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
     [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public SanPham? EditItem { get; set; }
+    [Parameter] public EventCallback<SanPham> OnSave { get; set; }
+
 
     public string step1BtnStr { set; get; } = "Lưu";
     // Models cho 3 tab
@@ -215,6 +218,22 @@ CloseOnOutsideClick="true">
         identityContext = new EditContext(Identity);
         infoContext = new EditContext(Info);
         detailContext = new EditContext(Detail);
+
+        if (IsEdit && EditItem != null)
+        {
+            Identity = new ProductIdentityModel
+                {
+                    ID = EditItem.MA_SP,
+                    TenSanPham = EditItem.TEN_SAN_PHAM,
+                    MaHang = EditItem.MA_HANG,
+                    MaKhachHang = EditItem.MA_KHACH_HANG,
+                    MaLoHang = EditItem.MA_LO_HANG,
+                    MaNhomHang = EditItem.MA_NHOM_HANG
+                };
+
+            // Re-create context with updated Identity
+            identityContext = new EditContext(Identity);
+        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -240,6 +259,12 @@ CloseOnOutsideClick="true">
             if (check)
             {
                 step1BtnStr = "Đã lưu";
+                await VisibleChanged.InvokeAsync(false);
+
+                if (OnSave.HasDelegate)
+                {
+                    // await OnSave.InvokeAsync(Identity.ToSanPham());
+                }
             }
 
         } catch (Exception ex)
