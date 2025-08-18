@@ -1,0 +1,13 @@
+import{dxFlyoutTagName as t}from"./flyout-6f5849c7.js";import{D as e}from"./popupportal-bbd2fea0.js";import{d as o}from"./events-interseptor-a522582a.js";import{a as r,b as s,G as i,H as p}from"./popup-355ecaa4.js";import{_ as a}from"./tslib.es6-d65164b3.js";import{n as m}from"./property-4ec0b52d.js";import{e as c}from"./custom-element-267f9a21.js";import{s as n,i as d,x as l}from"./lit-element-462e7ad3.js";import"./point-e4ec110e.js";import"./layouthelper-67dd777a.js";import"./constants-7c047c0d.js";import"./query-44b9267f.js";import"./rafaction-bba7928b.js";import"./screenhelper-e9ec6e3e.js";import"./transformhelper-ebad0156.js";import"./positiontracker-754c1e75.js";import"./branch-aebd078a.js";import"./eventhelper-8bcec49f.js";import"./logicaltreehelper-67db40f1.js";import"./portal-b3727c25.js";import"./data-qa-utils-8be7c726.js";import"./constants-a4904a3f.js";import"./const-90026e45.js";import"./dx-html-element-pointer-events-helper-c1007ce3.js";import"./dom-554d0cc7.js";import"./_commonjsHelpers-41cdd1e7.js";import"./common-48ec40e2.js";import"./browser-3fc721b7.js";import"./devices-17b9ba08.js";import"./dx-ui-element-0c1e122f.js";import"./lit-element-base-9288748e.js";import"./dx-license-30fd02d1.js";import"./capture-manager-2454adc2.js";import"./focushelper-2eea96ca.js";import"./nameof-factory-64d95f5b.js";import"./custom-events-helper-e7f279d3.js";import"./focustrap-d11cfef9.js";import"./tabbable-a2ae89a6.js";import"./key-ffa272aa.js";import"./keyboard-navigation-strategy-ea41c807.js";import"./dom-utils-d057dcaa.js";import"./css-classes-c63af734.js";import"./focus-utils-ae044224.js";import"./touch-6a322081.js";import"./disposable-d2c2d283.js";const j="dxbl-flyout-root";let f=class extends n{constructor(){super(...arguments),this.dropOpposite=!1,this.dropDirection=r.Near,this.dropAlignment=s.bottom}static get styles(){return d`
+            :host {
+                display: flex;
+                flex: 1 1 auto;
+                flex-direction: column;
+                align-items: stretch;
+                justify-items: stretch;
+                min-height: 0;
+            }
+        }`}render(){return l`
+            <slot></slot>
+            <slot name="arrow"/>
+        `}};a([m({type:Object,attribute:"drop-opposite"})],f.prototype,"dropOpposite",void 0),a([m({type:String,attribute:"drop-direction"})],f.prototype,"dropDirection",void 0),a([m({type:String,attribute:"drop-alignment"})],f.prototype,"dropAlignment",void 0),f=a([c(j)],f);function b(t){if(!t)throw new Error("failed");return t}const u={getReference:b,registeredComponents:[t,i,j,e,o,p]};export{u as default,b as getReference};

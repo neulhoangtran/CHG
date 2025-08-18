@@ -1,0 +1,73 @@
+﻿@page "/customer-care"
+@using DxBlazorWeb.Model
+@using DxBlazorWeb.Services.Interface
+@using DevExpress.Blazor
+@using DxBlazorWeb.Components.Modal
+@inject IAppService AppService
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Chăm sóc khách hàng</PageTitle>
+<PageHeader Title="Chăm sóc khách hàng" Subtitle="CSQH / Rủi ro / DKTT / Đánh giá" />
+
+<div class="main-content">
+    <DxGrid Data="@customers" PageSize="20" ShowGroupPanel="false" AllowSort="true"
+            FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always" ShowFilterRow="false">
+        <Columns>
+            <DxGridCommandColumn Width="80px" Caption="Hành động">
+                <CellDisplayTemplate Context="context">
+                    <DxButton Click="@(() => EditRow(context.DataItem as CustomerCare))"
+                              IconCssClass="fa fa-edit" RenderStyle="ButtonRenderStyle.None" CssClass="p-1" />
+                </CellDisplayTemplate>
+            </DxGridCommandColumn>
+
+            <DxGridDataColumn FieldName="ID" Caption="ID" Visible="false" />
+            <DxGridDataColumn FieldName="CustomerName" Caption="Tên khách hàng" />
+            <DxGridDataColumn FieldName="CustomerCode" Caption="Mã khách hàng" />
+            <DxGridDataColumn FieldName="CustomerCSQH" Caption="Chỉ số quan hệ" />
+            <DxGridDataColumn FieldName="CustomerRisk" Caption="Chỉ số rủi ro" />
+            <DxGridDataColumn FieldName="CustomerDKTT" Caption="Điều kiện thanh toán" />
+            <DxGridDataColumn FieldName="CustomerReview" Caption="Đánh giá" />
+        </Columns>
+    </DxGrid>
+
+    <CustomerCareModal Visible="@isModalVisible"
+                       VisibleChanged="(v) => isModalVisible = v"
+                       Item="@current"
+                       OnSave="HandleSave" />
+</div>
+
+@code {
+    private List<CustomerCare> customers = new();
+    private bool isModalVisible = false;
+    private CustomerCare current = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await AppService.GetAllCustomerCareAsync();
+    }
+
+    private void EditRow(CustomerCare item)
+    {
+        current = new CustomerCare
+            {
+                ID = item.ID,
+                CustomerName = item.CustomerName,
+                CustomerCode = item.CustomerCode,
+                CustomerCSQH = item.CustomerCSQH,
+                CustomerRisk = item.CustomerRisk,
+                CustomerDKTT = item.CustomerDKTT,
+                CustomerReview = item.CustomerReview
+            };
+        isModalVisible = true;
+    }
+
+    private async Task HandleSave(CustomerCare item)
+    {
+        var idx = customers.FindIndex(x => x.ID == item.ID);
+        if (idx >= 0) customers[idx] = item;
+        await AppService.UpdateCustomerCareAsync(item);
+        isModalVisible = false;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,58 @@
+﻿@* QDS 시스템에서 사용할 화면별 header *@
+
+@using Microsoft.AspNetCore.Components
+
+<!-- Content Header (Page header) -->
+<div class="content-header-local">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div class="d-flex align-items-end">
+                <h4 class="page-title-local">@Title</h4>
+                <p class="page-subtitle-local">@Subtitle</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./Content Header (Page header) -->
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Subtitle { get; set; } = "";
+}
+
+<style>
+    .content-header-local {
+        padding: 0px 10px 10px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title-local {
+        font-size: 1.5rem;
+        font-weight: 700; /* 두껍게 */
+        color: #3c6e71; /* 색상 선택 */
+        margin-bottom: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 추가 */
+        letter-spacing: 0.5px; /* 글자 간격 조정 */
+        text-transform: uppercase; /* 대문자로 변환 */
+    }
+
+    .page-subtitle-local {
+        font-size: 14px;
+        color: #6c757d;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-bottom: 0px;
+    }
+
+    .content-header-local .d-flex {
+        display: flex;
+        align-items: flex-end;
+    }
+</style>

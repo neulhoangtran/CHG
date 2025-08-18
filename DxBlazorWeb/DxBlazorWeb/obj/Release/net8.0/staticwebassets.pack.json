@@ -1,0 +1,257 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\DxBlazorWeb.bundle.scp.css",
+      "PackagePath": "staticwebassets\\DxBlazorWeb.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\FONT-LICENSE.txt",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\FONT-LICENSE.txt"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\ICON-LICENSE.txt",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\ICON-LICENSE.txt"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\README.md"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\all.js",
+      "PackagePath": "staticwebassets\\fontawesome\\all.js"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\all.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\all.min.css"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-light-300.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-light-300.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-light-300.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.woff"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.ttf"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.woff2"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\log-in.svg",
+      "PackagePath": "staticwebassets\\images\\account\\log-in.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\log-out.svg",
+      "PackagePath": "staticwebassets\\images\\account\\log-out.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\manage-email.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-email.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\manage-password.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-password.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\manage-personal.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-personal.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\manage-profile.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-profile.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\manage-two-factor.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-two-factor.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\providers\\facebook-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\facebook-logo.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\providers\\google-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\google-logo.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\providers\\microsoft-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\microsoft-logo.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\providers\\x-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\x-logo.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\settings.svg",
+      "PackagePath": "staticwebassets\\images\\account\\settings.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\account\\user.svg",
+      "PackagePath": "staticwebassets\\images\\account\\user.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\back.svg",
+      "PackagePath": "staticwebassets\\images\\back.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\cards.svg",
+      "PackagePath": "staticwebassets\\images\\cards.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\close.svg",
+      "PackagePath": "staticwebassets\\images\\close.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\counter.svg",
+      "PackagePath": "staticwebassets\\images\\counter.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\demos.svg",
+      "PackagePath": "staticwebassets\\images\\demos.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\doc.svg",
+      "PackagePath": "staticwebassets\\images\\doc.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\home.svg",
+      "PackagePath": "staticwebassets\\images\\home.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\logo.svg",
+      "PackagePath": "staticwebassets\\images\\logo.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\menu.svg",
+      "PackagePath": "staticwebassets\\images\\menu.svg"
+    },
+    {
+      "Id": "D:\\WORK\\CHUNG\\DxBlazor\\DxBlazorWeb\\DxBlazorWeb\\wwwroot\\images\\weather.svg",
+      "PackagePath": "staticwebassets\\images\\weather.svg"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.DxBlazorWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.DxBlazorWeb.props",
+      "PackagePath": "build\\DxBlazorWeb.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DxBlazorWeb.props",
+      "PackagePath": "buildMultiTargeting\\DxBlazorWeb.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.DxBlazorWeb.props",
+      "PackagePath": "buildTransitive\\DxBlazorWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

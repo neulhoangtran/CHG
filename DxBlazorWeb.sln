@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DxBlazorWeb", "DxBlazorWeb\DxBlazorWeb\DxBlazorWeb.csproj", "{F699EF6E-E836-484C-9577-503DF06885B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DxBlazorWeb.Client", "DxBlazorWeb\DxBlazorWeb.Client\DxBlazorWeb.Client.csproj", "{14A150C8-2704-4489-BFC3-C8400D409BAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F699EF6E-E836-484C-9577-503DF06885B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F699EF6E-E836-484C-9577-503DF06885B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F699EF6E-E836-484C-9577-503DF06885B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F699EF6E-E836-484C-9577-503DF06885B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A150C8-2704-4489-BFC3-C8400D409BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A150C8-2704-4489-BFC3-C8400D409BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A150C8-2704-4489-BFC3-C8400D409BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A150C8-2704-4489-BFC3-C8400D409BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BBC6B73-8E46-4DB9-BB34-F598460B560A}
+	EndGlobalSection
+EndGlobal

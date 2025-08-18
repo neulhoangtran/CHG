@@ -1,0 +1,72 @@
+﻿@using DxBlazorWeb.Model
+@using DxBlazorWeb.Services.Interface
+@using DevExpress.Blazor
+
+<DxPopup @bind-Visible="Visible"
+         Width="800px"
+         ShowCloseButton="true"
+         Context="popupContext"
+         CloseOnOutsideClick="true"
+         HeaderText="Đánh giá khách hàng">
+    <EditForm EditContext="@editContext" Context="editContext" OnValidSubmit="Submit">
+        <DxFormLayout>
+            <DxFormLayoutItem Caption="Tên khách hàng">
+                <DxTextBox @bind-Text="@Item.CustomerName" ReadOnly="true" />
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Mã khách hàng">
+                <DxTextBox @bind-Text="@Item.CustomerCode" ReadOnly="true" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Chỉ số quan hệ">
+                <DxComboBox @bind-Value="Item.CustomerCSQH" Data="@CsqlOptions" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Chỉ số rủi ro">
+                <DxComboBox @bind-Value="Item.CustomerRisk" Data="@RiskOptions" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Điều kiện thanh toán">
+                <DxComboBox @bind-Value="Item.CustomerDKTT" Data="@CsqlOptions" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem Caption="Đánh giá (1–10)">
+                <DxSpinEdit @bind-Value="Item.CustomerReview"
+                            Min="1" Max="10" Increment="0.5M" NullText="Chưa đánh giá" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem>
+                <DxButton Text="Lưu" SubmitFormOnClick="true" RenderStyle="ButtonRenderStyle.Primary" />
+                <DxButton Text="Đóng" Click="@(async () => await VisibleChanged.InvokeAsync(false))" CssClass="ml-2" />
+            </DxFormLayoutItem>
+        </DxFormLayout>
+    </EditForm>
+</DxPopup>
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+    [Parameter] public CustomerCare Item { get; set; } = new();
+    [Parameter] public EventCallback<CustomerCare> OnSave { get; set; }
+
+      private static readonly List<decimal> ReviewOptions = Enumerable
+        .Range(2, 19) // 2 → 20 (để có đủ bước)
+        .Select(i => (decimal)(i - 1) * 0.5m + 1) // ra 1, 1.5, 2, ...
+        .TakeWhile(v => v <= 10)
+        .ToList();
+
+    private static readonly string[] CsqlOptions = new[] { "Tốt", "Trung bình", "Thấp" };
+    private static readonly string[] RiskOptions = new[] { "Cao", "Trung bình", "Thấp" };
+
+    private async Task Submit()
+    {
+        await OnSave.InvokeAsync(Item);
+        await VisibleChanged.InvokeAsync(false);
+    }
+
+    private EditContext editContext;
+
+    protected override void OnParametersSet()
+    {
+        editContext = new EditContext(Item);
+    }
+}

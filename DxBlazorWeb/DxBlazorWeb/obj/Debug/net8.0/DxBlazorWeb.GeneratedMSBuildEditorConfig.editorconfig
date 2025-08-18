@@ -1,0 +1,105 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = DxBlazorWeb
+build_property.RootNamespace = DxBlazorWeb
+build_property.ProjectDir = C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Layout/PageHeader.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUGFnZUhlYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Modal/CustomerCareModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbFxDdXN0b21lckNhcmVNb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Modal/CustomerModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbFxDdXN0b21lck1vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Modal/OrderModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbFxPcmRlck1vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Modal/OutputModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbFxPdXRwdXRNb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Modal/ProductModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbFxQcm9kdWN0TW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/CustomerCarePage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDdXN0b21lckNhcmVQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/CustomerPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDdXN0b21lclBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/OrderPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmRlclBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/OutputTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPdXRwdXRUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/Product.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9kdWN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Layout/Drawer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRHJhd2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-i7r1vq4zpy
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-c0xlw55wqm
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-mqoqsx2pve
+
+[C:/NEUL/WORK/DxBlazor/DxBlazorWeb/DxBlazorWeb/Components/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-7rrqxaryc9

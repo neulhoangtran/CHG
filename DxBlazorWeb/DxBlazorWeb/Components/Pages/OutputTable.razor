@@ -1,0 +1,117 @@
+﻿@page "/output"
+@using DxBlazorWeb.Model;
+@using DxBlazorWeb.Components.Modal;
+@using DxBlazorWeb.Services.Interface;
+@inject IAppService AppService
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Sản lượng</PageTitle>
+<PageHeader Title="Quản lý sản lượng" />
+
+<div class="main-content">
+    <div class="d-flex flex-column" style="width: 100%">
+        <div>
+            <DxButton Text="Thêm sản lượng mới"
+                      IconCssClass="fa fa-plus"
+                      IconPosition="ButtonIconPosition.BeforeText"
+                      Click="HandleOpenOutputModal"
+                      CssClass="mb-2" />
+        </div>
+
+        <DxGrid Data="@outputs"
+                ShowGroupPanel="false"
+                AllowSort="true"
+                FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always"
+                ShowFilterRow="false">
+            <Columns>
+                <DxGridCommandColumn Width="80px" Caption="Hành động">
+                    <CellDisplayTemplate Context="context">
+                        <DxButton Click="@(() => EditOutput(context.DataItem as Output))"
+                                  IconCssClass="fa fa-edit"
+                                  RenderStyle="ButtonRenderStyle.None"
+                                  CssClass="p-1" />
+
+                        <DxButton Click="@(() => DeleteOutput(context.DataItem as Output))"
+                                  IconCssClass="fa fa-trash"
+                                  RenderStyle="ButtonRenderStyle.None"
+                                  CssClass="p-1" />
+                    </CellDisplayTemplate>
+                </DxGridCommandColumn>
+
+                <DxGridDataColumn FieldName="OutputName" Caption="Tên sản lượng" />
+                <DxGridDataColumn FieldName="Level1" Caption="Cấp độ 1" />
+                <DxGridDataColumn FieldName="Level2" Caption="Cấp độ 2" />
+                <DxGridDataColumn FieldName="Level3" Caption="Cấp độ 3" />
+            </Columns>
+        </DxGrid>
+
+        <OutputModal Visible="@isOutputModalVisible"
+                     VisibleChanged="(v) => isOutputModalVisible = v"
+                     Output="@CurrentOutput"
+                     IsEdit="@isEdit"
+                     OnSave="HandleSaveOutput" />
+    </div>
+</div>
+
+@code {
+    private List<Output> outputs = new();
+    private Output CurrentOutput = new();
+    private bool isEdit = false;
+    private bool isOutputModalVisible = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        outputs = await AppService.GetAllOutputAsync();
+    }
+
+    private void HandleOpenOutputModal()
+    {
+        isEdit = false;
+        CurrentOutput = new Output();
+        isOutputModalVisible = true;
+    }
+
+    private void EditOutput(Output output)
+    {
+        isEdit = true;
+        CurrentOutput = new Output
+        {
+            ID = output.ID,
+            OutputName = output.OutputName,
+            Level1 = output.Level1,
+            Level2 = output.Level2,
+            Level3 = output.Level3
+        };
+        isOutputModalVisible = true;
+    }
+
+    private void HandleSaveOutput(Output output)
+    {
+        var index = outputs.FindIndex(o => o.ID == output.ID);
+        if (index >= 0)
+        {
+            outputs[index] = output;
+        }
+        else
+        {
+            outputs.Insert(0, output);
+        }
+
+        isOutputModalVisible = false;
+    }
+
+    private async void DeleteOutput(Output output)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", new object[] { $"Xác nhận xóa: {output.OutputName}?" });
+        if (confirm)
+        {
+            var success = await AppService.DeleteOutputAsync(output.ID);
+            if (success)
+            {
+                outputs.Remove(output);
+                StateHasChanged();
+            }
+        }
+    }
+}
