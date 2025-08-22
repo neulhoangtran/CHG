@@ -20,13 +20,8 @@ namespace DxBlazorWeb.Model
     public class ProductInfoModel
     {
         // Loại bao (1–7) → string ("1"/"0" hoặc "Có"/"Không")
-        public string LoaiBaoThanChac { get; set; } = "";
-        public string LoaiBaoThanDai { get; set; } = "";
-        public string LoaiBaoOngChac { get; set; } = "";
-        public string LoaiBaoOngDai { get; set; } = "";
-        public string LoaiBaoTron { get; set; } = "";
-        public string LoaiBao4Tam { get; set; } = "";
-        public string LoaiBaoKhac { get; set; } = "";
+        [Required]
+        public string LoaiBao { set; get; }  = "";
 
         // Kích thước / tải trọng
         public string ChieuDaiDay { get; set; } = "";

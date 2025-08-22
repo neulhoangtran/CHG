@@ -2,6 +2,12 @@
 
 namespace DxBlazorWeb.Model
 {
+    public class Option
+    {
+        public string Value { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+    }
+
     public class ProductShipment
     {
         public string ID { set; get; } = Guid.NewGuid().ToString();

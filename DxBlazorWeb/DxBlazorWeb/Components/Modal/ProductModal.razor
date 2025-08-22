@@ -41,7 +41,7 @@ CloseOnOutsideClick="true">
                         <DxTextBox @bind-Text="Identity.MaNhomHang" />
                     </DxFormLayoutItem>
                     <DxFormLayoutItem Caption="" ColSpanMd="12" CssClass="text-right">
-                        <DxButton Text="@step1BtnStr" RenderStyle="ButtonRenderStyle.Primary" SubmitFormOnClick="true" />
+                        <DxButton Text="@step1BtnStr" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" SubmitFormOnClick="true" />
                     </DxFormLayoutItem>
                 </DxFormLayout>
             </EditForm>
@@ -53,36 +53,21 @@ CloseOnOutsideClick="true">
                 <DataAnnotationsValidator />
                 <DxFormLayout ColCountMd="3">
                     <DxFormLayoutGroup Caption="Loại bao">
-                        <DxFormLayoutItem Caption="Thân chạc">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoThanChac" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Thân dài">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoThanDai" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Ống thân chạc">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoOngChac" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Ống thân dài">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoOngDai" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Bao tròn">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoTron" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Ghép 4 tấm">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBao4Tam" />
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Khác">
-                            <DxComboBox Data="@YesNo" @bind-Value="Info.LoaiBaoKhac" />
+                        <DxFormLayoutItem ColSpanMd="12" Caption="">
+                            <DxRadioGroup @bind-Value="Info.LoaiBao" Items="@LoaiBaoOptions"
+                                          ValueFieldName="Value" TextFieldName="Label"
+                                          Layout="RadioGroupLayout.Horizontal" />
                         </DxFormLayoutItem>
                     </DxFormLayoutGroup>
+
 
                     <DxFormLayoutGroup Caption="Kích thước / tải trọng">
                         <DxFormLayoutItem Caption="Chiều dài đáy"><DxTextBox @bind-Text="Info.ChieuDaiDay" /></DxFormLayoutItem>
                         <DxFormLayoutItem Caption="Chiều rộng đáy"><DxTextBox @bind-Text="Info.ChieuRongDay" /></DxFormLayoutItem>
                         <DxFormLayoutItem Caption="Chiều cao"><DxTextBox @bind-Text="Info.ChieuCao" /></DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="ĐK miệng"><DxTextBox @bind-Text="Info.DuongKinhMieng" /></DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="ĐK đáy"><DxTextBox @bind-Text="Info.DuongKinhDay" /></DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="Tải trọng yêu cầu"><DxTextBox @bind-Text="Info.TaiTrongYC" /></DxFormLayoutItem>
+                        @* <DxFormLayoutItem Caption="ĐK miệng"><DxTextBox @bind-Text="Info.DuongKinhMieng" /></DxFormLayoutItem> *@
+                        @* <DxFormLayoutItem Caption="ĐK đáy"><DxTextBox @bind-Text="Info.DuongKinhDay" /></DxFormLayoutItem> *@
+                        @* <DxFormLayoutItem Caption="Tải trọng yêu cầu"><DxTextBox @bind-Text="Info.TaiTrongYC" /></DxFormLayoutItem> *@
                     </DxFormLayoutGroup>
 
                     <DxFormLayoutGroup Caption="Liner / Tráng / Màu vải">
@@ -243,6 +228,18 @@ CloseOnOutsideClick="true">
         CustomerCodes = customers.Select(c => c.CustomerCode).Distinct().OrderBy(x => x).ToList();
 
     }
+
+    public List<Option> LoaiBaoOptions = new()
+    {
+        new() { Value = "ThanChac", Label = "Thân chạc" },
+        new() { Value = "ThanDai", Label = "Thân dài" },
+        new() { Value = "OngChac", Label = "Ống thân chạc" },
+        new() { Value = "OngDai", Label = "Ống thân dài" },
+        new() { Value = "Tron", Label = "Bao tròn" },
+        new() { Value = "4Tam", Label = "Ghép 4 tấm" },
+        new() { Value = "Khac", Label = "Khác" },
+    };
+
 
     async Task HandleSaveNewProduct()
     {

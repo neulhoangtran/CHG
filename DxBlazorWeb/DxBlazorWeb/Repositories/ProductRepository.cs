@@ -206,13 +206,6 @@ WHERE MA_SP=@ID;";
 
             cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(maSp);
 
-            cmd.Parameters.AddWithValue("@A", info.LoaiBaoThanChac ?? "");
-            cmd.Parameters.AddWithValue("@B", info.LoaiBaoThanDai ?? "");
-            cmd.Parameters.AddWithValue("@C", info.LoaiBaoOngChac ?? "");
-            cmd.Parameters.AddWithValue("@D", info.LoaiBaoOngDai ?? "");
-            cmd.Parameters.AddWithValue("@E", info.LoaiBaoTron ?? "");
-            cmd.Parameters.AddWithValue("@F", info.LoaiBao4Tam ?? "");
-            cmd.Parameters.AddWithValue("@G", info.LoaiBaoKhac ?? "");
 
             cmd.Parameters.AddWithValue("@H", info.ChieuDaiDay ?? "");
             cmd.Parameters.AddWithValue("@I", info.ChieuRongDay ?? "");

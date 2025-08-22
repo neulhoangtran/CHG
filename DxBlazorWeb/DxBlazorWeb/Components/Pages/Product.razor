@@ -15,13 +15,6 @@
     margin-bottom: 12px;
     }
 </style>
-<div class="main-content">
-    <div class="d-flex flex-column" style="width:100%">
-        <DxButton Text="Thêm sản phẩm" IconCssClass="fa fa-plus"
-        IconPosition="ButtonIconPosition.BeforeText"
-        Click="OpenCreateModal" CssClass="mb-2" />
-    </div>
-</div>
 
 <div class="main-content">
     <div class="d-flex flex-column" style="width:100%">
@@ -38,6 +31,7 @@
                         <DxButton Click="@(() => EditProduct((SanPham)context.DataItem))"
                                   IconCssClass="fa fa-edit"
                                   RenderStyle="ButtonRenderStyle.Secondary"
+                                  Context="btnContext"
                                   CssClass="me-1">
                             Sửa
                         </DxButton>
@@ -45,6 +39,7 @@
                         <DxButton Click="@(() => DeleteProduct((SanPham)context.DataItem))"
                                   IconCssClass="fa fa-trash"
                                   RenderStyle="ButtonRenderStyle.Danger"
+                                  Context="btnContext"
                                   RenderStyleMode="ButtonRenderStyleMode.Outline">
                             Xóa
                         </DxButton>

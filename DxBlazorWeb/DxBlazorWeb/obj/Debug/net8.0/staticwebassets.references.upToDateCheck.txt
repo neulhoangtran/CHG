@@ -77,3 +77,8 @@ C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticweba
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
 C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\NEUL\WORK\DxBlazor\DxBlazorWeb\DxBlazorWeb.Client\obj\Debug\net8.0\staticwebassets.build.json
