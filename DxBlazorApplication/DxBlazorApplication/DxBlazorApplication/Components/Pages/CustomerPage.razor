@@ -1,0 +1,108 @@
+﻿@page "/customer"
+@using DxBlazorApplication.Model
+@using DxBlazorApplication.Services.Interface
+@using DevExpress.Blazor
+@using DxBlazorApplication.Components.Modal
+@inject IAppService AppService
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Khách hàng</PageTitle>
+<PageHeader Title="Quản lý khách hàng" Subtitle="" />
+
+<div class="main-content">
+    <div class="d-flex flex-column" style="width: 100%">
+        <div>
+            <DxButton Text="Thêm khách hàng" IconCssClass="fa fa-plus"
+                      IconPosition="ButtonIconPosition.BeforeText"
+                      Click="HandleOpenCustomerModal" CssClass="mb-2" />
+        </div>
+
+        <DxGrid Data="@customers"
+                PageSize="20"
+                ShowGroupPanel="false"
+                AllowSort="true"
+                FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always"
+                ShowFilterRow="false">
+            <Columns>
+                <DxGridCommandColumn Width="80px" Caption="Hành động">
+                    <CellDisplayTemplate Context="context">
+                        <DxButton Click="@(() => EditCustomer(context.DataItem as Customer))"
+                                  IconCssClass="fa fa-edit" RenderStyle="ButtonRenderStyle.None"
+                                  CssClass="p-1" />
+                        <DxButton Click="@(() => DeleteCustomer(context.DataItem as Customer))"
+                                  IconCssClass="fa fa-trash" RenderStyle="ButtonRenderStyle.None"
+                                  CssClass="p-1" />
+                    </CellDisplayTemplate>
+                </DxGridCommandColumn>
+
+                <DxGridDataColumn FieldName="ID" Caption="ID" Visible="false" />
+                <DxGridDataColumn FieldName="CustomerName" Caption="Tên khách hàng" />
+                <DxGridDataColumn FieldName="CustomerCode" Caption="Mã khách hàng" />
+                <DxGridDataColumn FieldName="CustomerManager" Caption="Người phụ trách" />
+                <DxGridDataColumn FieldName="CustomerPosition" Caption="Chức vụ" />
+                <DxGridDataColumn FieldName="CustomerEmail" Caption="Email" />
+                <DxGridDataColumn FieldName="CustomerPhone" Caption="Số đt" />
+                <DxGridDataColumn FieldName="CustomerAddress" Caption="Địa chỉ" />
+                <DxGridDataColumn FieldName="CustomerKakao" Caption="Kakao" />
+                <DxGridDataColumn FieldName="CustomerZalo" Caption="Zalo" />
+                <DxGridDataColumn FieldName="CustomerDetail" Caption="Thông tin chi tiết" />
+            </Columns>
+        </DxGrid>
+
+        <CustomerModal Visible="@isCustomerModalVisible"
+                       VisibleChanged="(v) => isCustomerModalVisible = v"
+                       Customer="@CurrentCustomer"
+                       IsEdit="@isEdit"
+                       OnSave="HandleSaveCustomer" />
+    </div>
+</div>
+
+@code {
+    private List<Customer> customers = new();
+    private bool isEdit = false;
+    private bool isCustomerModalVisible = false;
+    private Customer CurrentCustomer = new();
+
+    private void HandleOpenCustomerModal()
+    {
+        isEdit = false;
+        CurrentCustomer = new Customer(); // reset form
+        isCustomerModalVisible = true;
+    }
+
+    private void EditCustomer(Customer customer)
+    {
+        isEdit = true;
+        CurrentCustomer = customer;
+        isCustomerModalVisible = true;
+    }
+
+    private void HandleSaveCustomer(Customer customer)
+    {
+        var index = customers.FindIndex(c => c.ID == customer.ID);
+        if (index >= 0) customers[index] = customer;
+        else customers.Insert(0, customer);
+        isCustomerModalVisible = false;
+    }
+
+    private async void DeleteCustomer(Customer customer)
+    {
+        var mess = $"Xác nhận xóa khách hàng: {customer.CustomerName}?";
+        bool confirm = await JSRuntime.InvokeAsync<bool>("confirm", new object[] { mess });
+        if (confirm)
+        {
+            bool success = await AppService.DeleteCustomerAsync(customer.ID);
+            if (success)
+            {
+                customers.Remove(customer);
+                StateHasChanged();
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await AppService.GetAllCustomersAsync();
+    }
+}

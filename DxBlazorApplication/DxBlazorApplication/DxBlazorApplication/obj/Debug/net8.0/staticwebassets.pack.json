@@ -1,0 +1,261 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\DxBlazorApplication.bundle.scp.css",
+      "PackagePath": "staticwebassets\\DxBlazorApplication.hfiydcm5hq.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\bootstrap\\bootstrap.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\FONT-LICENSE.txt",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\FONT-LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\ICON-LICENSE.txt",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\ICON-LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\open.iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open.iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\all.js",
+      "PackagePath": "staticwebassets\\fontawesome\\all.js"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\all.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\all.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-duotone-900.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-duotone-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-light-300.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-light-300.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-light-300.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-light-300.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.woff",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.woff"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-thin-100.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-thin-100.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\log-in.svg",
+      "PackagePath": "staticwebassets\\images\\account\\log-in.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\log-out.svg",
+      "PackagePath": "staticwebassets\\images\\account\\log-out.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\manage-email.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-email.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\manage-password.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-password.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\manage-personal.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-personal.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\manage-profile.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-profile.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\manage-two-factor.svg",
+      "PackagePath": "staticwebassets\\images\\account\\manage-two-factor.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\providers\\facebook-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\facebook-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\providers\\google-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\google-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\providers\\microsoft-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\microsoft-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\providers\\x-logo.svg",
+      "PackagePath": "staticwebassets\\images\\account\\providers\\x-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\settings.svg",
+      "PackagePath": "staticwebassets\\images\\account\\settings.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\account\\user.svg",
+      "PackagePath": "staticwebassets\\images\\account\\user.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\back.svg",
+      "PackagePath": "staticwebassets\\images\\back.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\cards.svg",
+      "PackagePath": "staticwebassets\\images\\cards.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\close.svg",
+      "PackagePath": "staticwebassets\\images\\close.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\counter.svg",
+      "PackagePath": "staticwebassets\\images\\counter.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\demos.svg",
+      "PackagePath": "staticwebassets\\images\\demos.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\doc.svg",
+      "PackagePath": "staticwebassets\\images\\doc.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\home.svg",
+      "PackagePath": "staticwebassets\\images\\home.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\logo.svg",
+      "PackagePath": "staticwebassets\\images\\logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\menu.svg",
+      "PackagePath": "staticwebassets\\images\\menu.svg"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication\\wwwroot\\images\\weather.svg",
+      "PackagePath": "staticwebassets\\images\\weather.svg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DxBlazorApplication.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DxBlazorApplication.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DxBlazorApplication.props",
+      "PackagePath": "build\\DxBlazorApplication.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DxBlazorApplication.props",
+      "PackagePath": "buildMultiTargeting\\DxBlazorApplication.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DxBlazorApplication.props",
+      "PackagePath": "buildTransitive\\DxBlazorApplication.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

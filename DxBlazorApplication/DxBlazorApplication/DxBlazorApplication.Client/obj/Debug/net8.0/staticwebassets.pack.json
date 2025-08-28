@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication.Client\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\DxBlazorApplication.Client.bundle.scp.css",
+      "PackagePath": "staticwebassets\\DxBlazorApplication.Client.ubtu2ag0ag.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication.Client\\wwwroot\\appsettings.Development.json",
+      "PackagePath": "staticwebassets\\appsettings.Development.json"
+    },
+    {
+      "Id": "C:\\Users\\HYV\\source\\repos\\DxBlazorApplication\\DxBlazorApplication\\DxBlazorApplication.Client\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DxBlazorApplication.Client.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DxBlazorApplication.Client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DxBlazorApplication.Client.props",
+      "PackagePath": "build\\DxBlazorApplication.Client.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DxBlazorApplication.Client.props",
+      "PackagePath": "buildMultiTargeting\\DxBlazorApplication.Client.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DxBlazorApplication.Client.props",
+      "PackagePath": "buildTransitive\\DxBlazorApplication.Client.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

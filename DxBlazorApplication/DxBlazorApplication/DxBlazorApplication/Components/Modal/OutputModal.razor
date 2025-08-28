@@ -1,0 +1,97 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using DxBlazorApplication.Model
+@using DxBlazorApplication.Services.Interface
+@using DevExpress.Blazor
+@inject IAppService AppService
+
+<DxPopup @bind-Visible="Visible"
+         Width="500px"
+         ShowCloseButton="true"
+         Context="popupContext"
+         CloseOnOutsideClick="true"
+         HeaderText="@((IsEdit ? "Chỉnh sửa sản lượng" : "Thêm sản lượng"))">
+
+    <EditForm EditContext="@editContext" Context="editContext" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <DxFormLayout>
+            <DxFormLayoutItem Caption="Tên sản lượng">
+                <DxTextBox @bind-Text="Output.OutputName" />
+                <ValidationMessage For="@(() => Output.OutputName)" />
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Cấp độ 1">
+                <DxSpinEdit @bind-Value="Output.Level1" />
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Cấp độ 2">
+                <DxSpinEdit @bind-Value="Output.Level2" />
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Cấp độ 3">
+                <DxSpinEdit @bind-Value="Output.Level3" />
+            </DxFormLayoutItem>
+
+            <DxFormLayoutItem>
+                <DxButton Text="@saveButtonText"
+                          SubmitFormOnClick="true"
+                          RenderStyle="ButtonRenderStyle.Primary"
+                          Enabled="@canClickSave" />
+                <DxButton Text="Hủy" Click="OnCancelClicked" CssClass="ml-2" />
+            </DxFormLayoutItem>
+        </DxFormLayout>
+    </EditForm>
+</DxPopup>
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+
+    [Parameter] public Output Output { get; set; } = new();
+    [Parameter] public EventCallback<Output> OnSave { get; set; }
+
+    [Parameter] public bool IsEdit { get; set; }
+
+    private string saveButtonText = "Lưu";
+    private bool canClickSave = true;
+    private EditContext editContext;
+
+    protected override void OnParametersSet()
+    {
+        editContext = new EditContext(Output);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        saveButtonText = IsEdit ? "Đang cập nhật..." : "Đang lưu...";
+        canClickSave = false;
+
+        bool success;
+
+        if (IsEdit)
+        {
+            success = await AppService.UpdateOutputAsync(Output);
+        }
+        else
+        {
+            Output.ID = Guid.NewGuid().ToString();
+            success = await AppService.AddOutputAsync(Output);
+        }
+
+        if (success)
+        {
+            saveButtonText = "Thành công!";
+            await OnSave.InvokeAsync(Output);
+            await Task.Delay(1000);
+            await VisibleChanged.InvokeAsync(false);
+        }
+        else
+        {
+            saveButtonText = "Lỗi!";
+        }
+
+        canClickSave = true;
+        saveButtonText = IsEdit ? "Cập nhật" : "Lưu";
+    }
+
+    private async Task OnCancelClicked()
+    {
+        await VisibleChanged.InvokeAsync(false);
+    }
+}

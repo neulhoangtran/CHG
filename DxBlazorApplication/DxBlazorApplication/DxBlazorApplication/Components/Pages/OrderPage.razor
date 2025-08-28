@@ -1,0 +1,106 @@
+﻿@page "/order"
+@using DxBlazorApplication.Model
+@using DxBlazorApplication.Services.Interface
+@using DevExpress.Blazor
+@using DxBlazorApplication.Components.Modal
+@inject IAppService AppService
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Đơn hàng</PageTitle>
+<PageHeader Title="Quản lý đơn hàng" Subtitle="" />
+
+<div class="main-content">
+    <div class="d-flex flex-column" style="width: 100%">
+        <div>
+            <DxButton Text="Thêm đơn" IconCssClass="fa fa-plus"
+                      IconPosition="ButtonIconPosition.BeforeText"
+                      Click="OpenNew" CssClass="mb-2" />
+        </div>
+
+        <DxGrid Data="@orders" PageSize="20" AllowSort="true"
+                ShowGroupPanel="false"
+                FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always"
+                ShowFilterRow="false">
+            <Columns>
+                <DxGridCommandColumn Width="80px" Caption="Hành động">
+                    <CellDisplayTemplate Context="context">
+                        <DxButton Click="@(() => EditRow(context.DataItem as OrderView))"
+                                  IconCssClass="fa fa-edit" RenderStyle="ButtonRenderStyle.None" CssClass="p-1" />
+                        <DxButton Click="@(() => DeleteRow(context.DataItem as OrderView))"
+                                  IconCssClass="fa fa-trash" RenderStyle="ButtonRenderStyle.None" CssClass="p-1" />
+                    </CellDisplayTemplate>
+                </DxGridCommandColumn>
+
+                <DxGridDataColumn FieldName="ID" Caption="ID" Visible="false" />
+                <DxGridDataColumn FieldName="CustomerName" Caption="Tên khách hàng" />
+                <DxGridDataColumn FieldName="CustomerCode" Caption="Mã khách hàng" />
+                <DxGridDataColumn FieldName="OrderCode"   Caption="Mã đơn hàng" />
+                <DxGridDataColumn FieldName="Quantity"    Caption="Số lượng" />
+                <DxGridDataColumn FieldName="OrderDate"   Caption="Thời gian đặt hàng" DisplayFormat="d" />
+                <DxGridDataColumn FieldName="DeliveryDate" Caption="Thời gian giao hàng" DisplayFormat="d" />
+                <DxGridDataColumn FieldName="Status"      Caption="Trạng thái" />
+            </Columns>
+        </DxGrid>
+
+        <DxBlazorApplication.Components.Modal.OrderModal Visible="@isModalVisible"
+                    VisibleChanged="(v) => isModalVisible = v"
+                    Customers="@customers"
+                    Item="@current"
+                    IsEdit="@isEdit"
+                    OnSave="Save" />
+    </div>
+</div>
+
+@code {
+    private List<OrderView> orders = new();
+    private List<Customer> customers = new(); // dùng cho combobox chọn khách
+    private bool isModalVisible = false;
+    private bool isEdit = false;
+    private Order current = new();
+
+    protected override async Task OnInitializedAsync() {
+        customers = await AppService.GetAllCustomersAsync();
+        orders = await AppService.GetAllOrdersAsync();
+    }
+
+    void OpenNew() {
+        isEdit = false;
+        current = new Order {
+            ID = Guid.NewGuid().ToString(),
+            OrderDate = DateTime.Today,
+            DeliveryDate = DateTime.Today,
+            Status = "Đã tiếp nhận"
+        };
+        isModalVisible = true;
+    }
+
+    void EditRow(OrderView v) {
+        isEdit = true;
+        current = new Order {
+            ID = v.ID, CustomerID = v.CustomerID,
+            OrderCode = v.OrderCode, Quantity = v.Quantity,
+            OrderDate = v.OrderDate, DeliveryDate = v.DeliveryDate,
+            Status = v.Status
+        };
+        isModalVisible = true;
+    }
+
+    async Task Save(Order o) {
+        if (isEdit) await AppService.UpdateOrderAsync(o);
+        else await AppService.AddOrderAsync(o);
+        orders = await AppService.GetAllOrdersAsync();
+        isModalVisible = false;
+        StateHasChanged();
+    }
+
+    async Task DeleteRow(OrderView v) {
+        var mess = $"Xóa đơn: {v.OrderCode} của {v.CustomerName}?";
+        bool confirm = await JSRuntime.InvokeAsync<bool>("confirm", new object[] { mess });
+        if (confirm) {
+            await AppService.DeleteOrderAsync(v.ID);
+            orders.RemoveAll(x => x.ID == v.ID);
+            StateHasChanged();
+        }
+    }
+}

@@ -1,0 +1,240 @@
+﻿@page "/product"
+@using DxBlazorApplication.Services.Interface
+@using DevExpress.Blazor
+@using DxBlazorApplication.Components.Modal
+@using DxBlazorApplication.Model
+@inject IAppService AppService
+@inject IProductService ProductService
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>Sản phẩm</PageTitle>
+<PageHeader Title="Quản lý sản phẩm" />
+<style>
+    .dxbl-tabs.dxbl-tabs-top > .dxbl-tabs-tablist {
+    margin-bottom: 12px;
+    }
+</style>
+
+<DxToastProvider Name="Overview"
+MaxToastCount="5"
+ThemeMode="ToastThemeMode.Dark"
+AnimationType="ToastAnimationType.Fade"
+HorizontalAlignment="HorizontalAlignment.Right"
+Width="320px"
+VerticalAlignment="VerticalEdge.Top"
+DisplayTime="@TimeSpan.FromSeconds(3)" />
+
+<div class="container-fluid iqc-incoming-page">
+    <div class="row justify-content-center">
+        <!-- Filter Section -->
+        <div class="col-12 col-lg-12 p-0">
+            <div class="card border rounded shadow-sm mb-3">
+                <div class="card-body">
+                    <EditForm OnValidSubmit="@HandleValidSubmit"
+                    Context="EditFormContext"
+                    EditContext="@editContext">
+                        <DataAnnotationsValidator /> @* 모델 클래스에서 지정한 Annotation Validator *@
+
+                        <DxFormLayout CssClass="mb-0">
+                            <DxFormLayoutItem ColSpanMd="3" Caption="Mã khách hàng">
+                                <DxComboBox Data="CustomerCodes" ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" AllowUserInput="true" @bind-Value="filter.MaKhacHang" NullText="All..." />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="3" Caption="Lô Hàng">
+                                <DxTextBox @bind-Text="filter.MaKhacHang" NullText="Nhập lô hàng..." />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="3" Caption="Tên sản phẩm">
+                                <DxTextBox @bind-Text="filter.TenSanPham" NullText="Nhập tên sản phẩm"/>
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="3" CssClass="right-align mt-0">
+                                <div class="d-flex justify-content-end align-items-center">
+                                    <DxButton Text="Tìm kiếm" SubmitFormOnClick="true" />
+                                    <DxButton Text="Thêm sản phẩm" IconCssClass="fa fa-plus"
+                                    IconPosition="ButtonIconPosition.BeforeText"
+                                    Click="OpenCreateModal" CssClass="ms-1" />
+                                </div>
+                            </DxFormLayoutItem>
+                        </DxFormLayout>
+                    </EditForm>
+                </div>
+            </div>
+            <div class="card border rounded shadow-sm">
+                <div class="card-body">
+                    <div class="main-content">
+                        <div class="d-flex flex-column" style="width:100%">
+                            <DxLoadingPanel @bind-Visible="PanelVisible"
+                            IsContentBlocked="true"
+                            ApplyBackgroundShading="true"
+                            IndicatorAreaVisible="false"
+                            Text="Loading Data...">
+                                <!-- Grid chỉ hiển thị các cột của ProductIdentityModel -->
+                                <DxGrid Data="ProductList" ShowFilterRow="false" PageSize="12" CustomizeElement="Grid_CustomizeElement"
+                                ShowGroupPanel="false" ColumnResizeMode="GridColumnResizeMode.NextColumn">
+                                    <Columns>
+                                        <DxGridDataColumn Caption="Thao tác" Width="160px">
+                                            <CellDisplayTemplate Context="context">
+                                                <DxButton Click="@(() => EditProduct((SanPham)context.DataItem))"
+                                                IconCssClass="fa fa-edit"
+                                                RenderStyle="ButtonRenderStyle.Secondary"
+                                                Context="btnContext"
+                                                CssClass="me-1">
+                                                    Xem/Sửa
+                                                </DxButton>
+
+                                                <DxButton Click="@(() => DeleteProduct((SanPham)context.DataItem))"
+                                                IconCssClass="fa fa-trash"
+                                                RenderStyle="ButtonRenderStyle.Danger"
+                                                Context="btnContext"
+                                                RenderStyleMode="ButtonRenderStyleMode.Outline">
+                                                    Xóa
+                                                </DxButton>
+                                            </CellDisplayTemplate>
+                                        </DxGridDataColumn>
+
+                                        <DxGridDataColumn FieldName="MA_SP" Caption="ID (MA_SP)" Visible="false" />
+                                        <DxGridDataColumn FieldName="TEN_SAN_PHAM" Caption="Tên sản phẩm" />
+                                        <DxGridDataColumn FieldName="MA_HANG" Caption="Mã hàng" Width="140px" />
+                                        <DxGridDataColumn FieldName="LOAI_BAO" Caption="Loại bao bì" Width="100px" />
+                                        <DxGridDataColumn FieldName="TRONG_TAI" Caption="Trọng tải" Width="100px" />
+                                        <DxGridDataColumn FieldName="MAU_VAI" Caption="Màu sắc" Width="100px" />
+                                        <DxGridDataColumn FieldName="TRANG" Caption="Tráng" Width="100px" />
+                                        <DxGridDataColumn FieldName="CO_PE_DAY" Caption="PE đáy" Width="100px" />
+                                        <DxGridDataColumn FieldName="MA_KHACH_HANG" Caption="Mã KH" Width="120px" />
+                                        <DxGridDataColumn FieldName="MA_LO_HANG" Caption="Lô hàng" Width="140px" />
+                                        <DxGridDataColumn FieldName="MA_NHOM_HANG" Caption="Nhóm hàng" Width="140px" />
+                                    </Columns>
+                                </DxGrid>
+                            </DxLoadingPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Gọi modal -->
+<ProductModal Visible="@isProductModalVisible"
+              VisibleChanged="OnModalVisibleChanged"
+              EditItem="editItem"
+              OnSave="OnProductSaved"
+              IsEdit="isEdit" />
+@code {
+    // state của modal
+    [Inject] IToastNotificationService ToastService { get; set; } = default!;
+    private bool isProductModalVisible = false;
+    private bool isEdit = false;
+    private bool PanelVisible = false;
+    private SanPham? editItem = null;
+    public List<SanPham> ProductList { set; get;  } = new();
+    public ProductFilterModel filter = new();
+    private EditContext? editContext;
+    public List<string>? CustomerCodes { set; get; }
+
+    private async Task OnModalVisibleChanged(bool value)
+    {
+        isProductModalVisible = value;
+
+        // Khi modal đóng (value == false) -> reload danh sách
+        if (!value)
+        {
+            await GetProductList();
+            StateHasChanged();
+        }
+    }
+
+    async Task HandleValidSubmit()
+    {
+        try{
+            await GetProductList();
+            StateHasChanged();
+        }catch(Exception ex)
+        {
+            ToastService.ShowToast(new ToastOptions
+            {
+                ProviderName = "Overview",
+                ThemeMode = ToastThemeMode.Saturated,
+                RenderStyle = ToastRenderStyle.Danger,
+                Title = "Error on filtering",
+                Text = ex.Message
+            });
+        }
+    }
+
+    private void OpenCreateModal()
+    {
+        isEdit = false;
+        isProductModalVisible = true;
+    }
+
+    private async Task OnProductSaved(SanPham saved)
+    {
+        isProductModalVisible = false;
+        // await JSRuntime.InvokeVoidAsync("console.log", $"Saved product: {saved.MA_HANG}");
+        await GetProductList();
+        StateHasChanged();
+    }
+
+    public async Task GetProductList()
+    {
+        try
+        {
+            PanelVisible = true;
+            StateHasChanged();
+            ProductList = await ProductService.GetAllProductsAsync(filter);
+            await Task.Delay(100);
+            PanelVisible = false;
+            StateHasChanged();
+        } catch (Exception ex)
+        {
+            PanelVisible = false;
+            ToastService.ShowToast(new ToastOptions
+                {
+                    ProviderName = "Overview",
+                    ThemeMode = ToastThemeMode.Saturated,
+                    RenderStyle = ToastRenderStyle.Danger,
+                    Title = "Error on filtering",
+                    Text = ex.Message
+                });
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        editContext = new EditContext(filter);
+        await GetProductList();
+        var customers = await AppService.GetAllCustomersAsync();
+        CustomerCodes = customers.Select(c => c.CustomerCode).Distinct().OrderBy(x => x).ToList();
+    }
+
+    private async void EditProduct(SanPham item)
+    {
+        isEdit = true;
+        editItem = item;
+        isProductModalVisible = true;
+
+        await JSRuntime.InvokeVoidAsync("console.log", $"Edit: {item.MA_SP}");
+    }
+
+    private async void DeleteProduct(SanPham item)
+    {
+        bool confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"Bạn có chắc muốn xoá sản phẩm [{item.TEN_SAN_PHAM}]?");
+
+        if (confirm)
+        {
+            await ProductService.DeleteProductAsync(item.MA_SP); 
+            await GetProductList();
+            StateHasChanged();
+        }
+    }
+    void Grid_CustomizeElement(GridCustomizeElementEventArgs e)
+    {
+        // 컬럼 헤더 스타일 변경
+        if (e.ElementType == GridElementType.HeaderCell)
+        {
+            e.Style = "background-color: lightblue; color: black; font-weight: bold;";
+        }
+    }
+
+}

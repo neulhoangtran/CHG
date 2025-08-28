@@ -1,0 +1,884 @@
+﻿@using DevExpress.Blazor
+@using System.ComponentModel.DataAnnotations
+@using DxBlazorApplication.Services.Interface
+@using DxBlazorApplication.Model
+@using System.Text.Json
+@inject IAppService AppService
+@inject IProductService ProductService
+@inject IJSRuntime JS
+@inject IToastNotificationService ToastService
+
+<DxPopup @bind-Visible="Visible"
+Width="1200px"
+HeaderText="@(IsEdit ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm")"
+ShowCloseButton="true"
+Closed="() => VisibleChanged.InvokeAsync(false)"
+CssClass="product-modal"
+Context="popupContext"
+ShowFooter="true"
+CloseOnOutsideClick="true">
+    <BodyContentTemplate>
+        <DxTabs @bind-ActiveTabIndex="ActiveTabIndex">
+            <!-- Tab 1: Nhận diện sản phẩm -->
+            <DxTabPage Text="1. Nhận diện sản phẩm"  >
+                <EditForm EditContext="@identityContext" Context="identityContext" OnValidSubmit="HandleSaveNewProduct"  >
+                    <DataAnnotationsValidator />
+                    <DxFormLayout>
+                        <DxFormLayoutItem Caption="Tên sản phẩm">
+                            <DxTextBox @bind-Text="Identity.TenSanPham" NullText="Nhập tên sản phẩm..." />
+                        </DxFormLayoutItem>
+                        <DxFormLayoutItem Caption="Mã hàng">
+                            <DxTextBox @bind-Text="Identity.MaHang" NullText="Nhập mã hàng..." />
+                        </DxFormLayoutItem>
+
+                        <DxFormLayoutItem Caption="Khách hàng (Mã)">
+                            <DxComboBox Data="@CustomerCodes"
+                            @bind-Value="Identity.MaKhachHang"
+                            NullText="Chọn mã KH (CUSTOMER_CODE)" />
+                        </DxFormLayoutItem>
+                        <DxFormLayoutItem Caption="Mã lô hàng">
+                            <DxTextBox @bind-Text="Identity.MaLoHang" />
+                        </DxFormLayoutItem>
+
+                        <DxFormLayoutItem Caption="Mã nhóm hàng">
+                            <DxTextBox @bind-Text="Identity.MaNhomHang" />
+                        </DxFormLayoutItem>
+
+                    </DxFormLayout>
+                </EditForm>
+            </DxTabPage>
+
+            <!-- Tab 2: Thông tin sản phẩm -->
+            <DxTabPage Text="2. Thông tin sản phẩm">
+                <EditForm EditContext="@infoContext" Context="infoContext" OnValidSubmit="HandleSaveProductInformation">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <DxFormLayout CaptionPosition="CaptionPosition.Vertical" SizeMode="SizeMode.Small">
+                        <DxFormLayoutGroup Caption="Loại bao">
+                            <DxFormLayoutItem ColSpanMd="12" Caption="">
+                                <DxRadioGroup @bind-Value="Info.LoaiBao" Items="@LoaiBaoOptions"
+                                ValueFieldName="Value" TextFieldName="Label"
+                                Layout="RadioGroupLayout.Horizontal" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Kích Thước">
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Denier"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTDenier" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Sợi Dọc"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTSoiDoc"  /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Sợi Ngang"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTSoiNgang" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Chiều Dài"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTChieuDai"  /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Chiều Rộng "><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTChieuRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Chiều Cao"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.KTChieuCao"  /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tapchi Miệng">
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Denier"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDenier" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Sợi Dọc"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCSoiDoc" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Sợi Ngang"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCSoiNgang" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Đường Kính"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDuongKinh" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Chiều Cao"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCChieuCao" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tapchi Đáy">
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Denier"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDDenier" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Sợi Dọc"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDSoiDoc" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Sợi Ngang"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDSoiNgang" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Đường Kính"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDDuongKinh" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2"  Caption="Chiều Cao"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TCDChieuCao" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Liner" ColSpanMd="12">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Độ dày"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Info.LinerDoDay" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Khổ"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Info.LinerKho" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Info.LinerDai" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Trọng Tải" ColSpanMd="6">
+                            <DxFormLayoutItem ColSpanMd="6"  Caption="Trọng Tải"><DxSpinEdit ShowSpinButtons="false"  @bind-Value="Info.TrongTai" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Màu Vải" ColSpanMd="6">
+                            <DxFormLayoutItem Caption="Màu Sắc">
+                                <DxTextBox @bind-Text="Info.MauVai" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tùy chọn khác">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Tráng">
+                                <DxComboBox Data="@YesNo" @bind-Value="Info.CoTran" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Đai đáy">
+                                <DxComboBox Data="@YesNo" @bind-Value="Info.CoDaiDay" />
+                            </DxFormLayoutItem>
+
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chống phình">
+                                <DxComboBox Data="@YesNo" @bind-Value="Info.CoChongPhinh" />
+                            </DxFormLayoutItem>
+
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dây Chống xì">
+                                <DxComboBox Data="@YesNo" @bind-Value="Info.CoDayChongXi" />
+                            </DxFormLayoutItem>
+
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Mex"><DxComboBox Data="@YesNo" @bind-Value="Info.CoMex" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Nhám"><DxComboBox Data="@YesNo" @bind-Value="Info.CoNham" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="PE đáy"><DxComboBox Data="@YesNo" @bind-Value="Info.CoPeDay" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Pallet"><DxComboBox Data="@YesNo" @bind-Value="Info.CoPallet" /></DxFormLayoutItem>
+
+                            <DxFormLayoutItem ColSpanMd="12" Caption="Yêu cầu khác"><DxTextBox @bind-Text="Info.GhiChu" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+                    </DxFormLayout>
+                </EditForm>
+            </DxTabPage>
+
+            <!-- Tab 3: Thông tin chi tiết -->
+            <DxTabPage Text="3. Thông tin chi tiết">
+                <EditForm EditContext="@detailContext" Context="detailContext" OnValidSubmit="HandleSaveProductDetail">
+                    <DataAnnotationsValidator />
+                    <DxFormLayout CaptionPosition="CaptionPosition.Vertical" SizeMode="SizeMode.Small">
+                        <DxFormLayoutGroup Caption="Thân Dài">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TDRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TDDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TDDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit  ShowSpinButtons="false" @bind-Value="Detail.TDSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TDTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Thân ngắn">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TNRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TNDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TNDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit  ShowSpinButtons="false" @bind-Value="Detail.TNSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TNTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Miệng">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.MRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.MDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.MDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.MSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.MTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tapchi Miệng">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCMRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCMDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCMDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.TCMSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCMTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Dây Tapchi Miệng">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Khổ dây (chiều rộng của dây)"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTCMRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chiều dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTCMDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption=""></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DTCMSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTCMTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Chạc Miệng">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Loại chạc (3,5,8 )"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CMLoaiChac" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chiều dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CMDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption=""></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CMSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CMTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tucong Miệng">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TMRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TMDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TMDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.TMSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TMTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Tapchi Đáy">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCDRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCDDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCDDienTich" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.TCDSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TCDTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <DxFormLayoutGroup Caption="Dây Tapchi Đáy">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Khổ dây (chiều rộng của dây)"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTDMRong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chiều dài"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTCDDai" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption=""></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số Lượng"><DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DTCDSoLuong" /></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng Lượng"><DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DTCDTrongLuong" /></DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Chạc Đáy -->
+                        <DxFormLayoutGroup Caption="Chạc đáy">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Loại chạc (3,5,8)">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CDLoaiChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chiều dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CDDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption=""></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CDSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CDTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Tự công đáy -->
+                        <DxFormLayoutGroup Caption="Tự công đáy">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TUDRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TUDDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TUDienTich" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.TUDSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.TUDTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Chạc nâng -->
+                        <DxFormLayoutGroup Caption="Chạc nâng" Visible=@(Info.LoaiBao == "GhepChac" || Info.LoaiBao == "OngChac" || Info.LoaiBao == "4TamDai" )>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Loại chạc">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNLoaiChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Màu chạc (WT/BLUE/GREEN)">
+                                <DxTextBox @bind-Text="Detail.CNMauChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CNTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Dai nâng -->
+                        <DxFormLayoutGroup Caption="Đai nâng" Visible=@(Info.LoaiBao == "GheDai" || Info.LoaiBao == "OngDai" || Info.LoaiBao == "4OngDai")>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Loại đai">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNLoaiChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Màu chạc (WT/BLUE/GREEN)">
+                                <DxTextBox @bind-Text="Detail.CNMauChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.CNSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.CNTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Đai ngang -->
+                        <DxFormLayoutGroup Caption="Đai ngang" Visible=@(Info.LoaiBao == "GheDai" || Info.LoaiBao == "OngDai" || Info.LoaiBao == "4OngDai")>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Loại đai">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DNGLoaiChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Màu chạc (WT/BLUE/GREEN)">
+                                <DxTextBox @bind-Text="Detail.DNGMauChac" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DNGRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DNGDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.DNGSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.DNTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Pocket -->
+                        <DxFormLayoutGroup Caption="Pocket">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.PocketRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.PocketDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption=""></DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.PocketSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.PocketTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Đắp 10x10 -->
+                        <DxFormLayoutGroup Caption="Đáp 10×10">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.Dap10x10SoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.Dap10x10TrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Chống bẩn -->
+                        <DxFormLayoutGroup Caption="Chống bẩn">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongBanRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongBanDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.ChongBanDienTich" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongBanSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.ChongBanTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Liner (chi tiết vật tư) -->
+                        <DxFormLayoutGroup Caption="Liner (chi tiết)">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Độ dày">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.LinerDoDayCt" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Khổ">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.LinerKhoCt" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.LinerDaiCt" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.LinerSoLuongCt" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.LinerTrongLuongCt" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Chống phình -->
+                        <DxFormLayoutGroup Caption="Chống phình (5,7,9)">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Rộng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongPhinhRong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongPhinhDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Diện tích">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.ChongPhinhDienTich" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongPhinhSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.ChongPhinhTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                        <!-- Chống xì -->
+                        <DxFormLayoutGroup Caption="Chống xì">
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Chiều dài">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongXiChieuDai" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Số lượng">
+                                <DxSpinEdit ShowSpinButtons="false" @bind-Value="Detail.ChongXiSoLuong" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem ColSpanMd="2" Caption="Trọng lượng">
+                                <DxSpinEdit Enabled="false" ShowSpinButtons="false" @bind-Value="Detail.ChongXiTrongLuong" />
+                            </DxFormLayoutItem>
+                        </DxFormLayoutGroup>
+
+                    </DxFormLayout>
+                </EditForm>
+            </DxTabPage>
+        </DxTabs>
+    </BodyContentTemplate>
+    @* <div class="mt-4"> *@
+    @*     <DxButton Text="@(IsEdit ? "Cập nhật" : "Lưu")" RenderStyle="ButtonRenderStyle.Primary" Click="SaveAsync" /> *@
+    @*     <DxButton Text="Hủy" CssClass="ml-2" Click="() => VisibleChanged.InvokeAsync(false)" /> *@
+    @* </div> *@
+    <FooterContentTemplate>
+        <div class="row col-12 p-0 m-0">
+            <div class="col-6 p-0">
+                <DxButton Text="Quay lại" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" CssClass="me-1" Click="() => ActiveTabIndex--" Visible="@(ActiveTabIndex > 0)" />
+                <DxButton Text="Tiếp tục" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" CssClass="ms-1" Click="() => ActiveTabIndex++" Visible="@(ActiveTabIndex < 2)" />
+            </div>
+            <div class="col-6 justify-content-end p-0 d-flex">
+                <DxButton Text="@step1BtnStr" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" Click="HandleSaveNewProduct" Visible="@(ActiveTabIndex == 0)" />
+                <DxButton Text="@step2BtnStr" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" Click="HandleSaveProductInformation" Visible="@(ActiveTabIndex == 1)" />
+                <DxButton Text="@step3BtnStr" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" CssClass="me-1" Click="HandleSaveProductDetail" Visible="@(ActiveTabIndex == 2)" />
+                <DxButton Text="@step33BtnStr" Context="btnContext" RenderStyle="ButtonRenderStyle.Primary" Click="HandleSaveProductDetailAndClose" Visible="@(ActiveTabIndex == 2)" />
+            </div>
+
+        </div>
+    </FooterContentTemplate>
+
+</DxPopup>
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public SanPham? EditItem { get; set; }
+    [Parameter] public EventCallback<SanPham> OnSave { get; set; }
+
+    int ActiveTabIndex { get; set; } = 0;
+    public string step1BtnStr { set; get; } = "Lưu";
+    public string step2BtnStr { set; get; } = "Lưu";
+    public string step3BtnStr { set; get; } = "Lưu";
+    public string step33BtnStr { set; get; } = "Lưu và đóng";
+    // Models cho 3 tab
+    ProductIdentityModel Identity { get; set; } = new();
+    ProductInfoModel Info { get; set; } = new();
+    ProductDetailModel Detail { get; set; } = new();
+
+    EditContext identityContext;
+    EditContext infoContext;
+    EditContext detailContext;
+
+    // Dữ liệu hỗ trợ
+    List<string> CustomerCodes = new(); // bind CUSTOMER.CUSTOMER_CODE
+    List<string> YesNo = new() { "Có", "Không" }; // hoặc {"1","0"}
+
+    protected override void OnParametersSet()
+    {
+        identityContext = new EditContext(Identity);
+        infoContext = new EditContext(Info);
+        detailContext = new EditContext(Detail);
+        if (!(IsEdit && EditItem != null))
+            return;
+
+        if (IsEdit && EditItem != null)
+        {
+            LoadFromEditItem(EditItem);
+
+            // re-create EditContext sau khi thay model bằng instance mới
+            identityContext = new EditContext(Identity);
+            infoContext = new EditContext(Info);
+            detailContext = new EditContext(Detail);
+        }
+        else
+        {
+            // Trạng thái tạo mới: giữ nguyên models mặc định, chỉ đảm bảo EditContext sync
+            identityContext = new EditContext(Identity);
+            infoContext = new EditContext(Info);
+            detailContext = new EditContext(Detail);
+        }
+
+        // Khi mở modal, đưa về tab 1
+        ActiveTabIndex = 0;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Load mã KH (CUSTOMER_CODE) – giả định AppService có hàm này
+        var customers = await AppService.GetAllCustomersAsync();
+        CustomerCodes = customers.Select(c => c.CustomerCode).Distinct().OrderBy(x => x).ToList();
+
+    }
+
+    public List<Option> LoaiBaoOptions = new()
+    {
+        new() { Value = "GhepChac", Label = "Ghép chạc" },
+        new() { Value = "GheDai", Label = "Ghép dài" },
+        new() { Value = "OngChac", Label = "Ống chạc" },
+        new() { Value = "OngDai", Label = "Ống đai" },
+        // new() { Value = "BaoTron", Label = "Bao tròn" },
+        new() { Value = "4OngDai", Label = "4 ống đai" },
+        new() { Value = "4TamDai", Label = "4 tấm đai" },
+        new() { Value = "Khac", Label = "Khác" },
+    };
+
+
+    async Task HandleSaveProductInformation()
+    {
+        if (!infoContext.Validate())
+        {
+            ShowWarning("Vui lòng kiểm tra dữ liệu thông tin sản phẩm.");
+            return;
+        }
+        try
+        {
+            if (string.IsNullOrWhiteSpace(Identity.ID))
+            {
+                ShowWarning("Bạn cần lưu thông tin nhận diện trước khi cập nhật thông tin sản phẩm.");
+                return;
+            }
+
+            // check tồn tại sản phẩm
+            bool exists = await ProductService.ExistsAsync(Identity.ID);
+            if (!exists)
+            {
+                ShowWarning("Sản phẩm chưa tồn tại trong cơ sở dữ liệu. Vui lòng lưu Tab 1 trước.");
+                return;
+            }
+
+            // update
+            var ok = await ProductService.UpdateProductInformationAsync(Identity.ID, Info);
+            if (ok)
+            {
+                ShowSuccess("Cập nhật thông tin sản phẩm thành công.");
+            }
+            else
+            {
+                ShowWarning("Không có thay đổi hoặc cập nhật thất bại.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Console.WriteLine(ex.ToString());
+            ShowError("Lỗi khi lưu thông tin sản phẩm.", ex.Message);
+        }
+    }
+
+    async Task HandleSaveProductDetailAndClose()
+    {
+        await HandleSaveProductDetail();
+        await VisibleChanged.InvokeAsync(false);
+        StateHasChanged();
+    }
+
+    async Task HandleSaveProductDetail()
+    {
+        if (!detailContext.Validate())
+        {
+            ShowWarning("Vui lòng kiểm tra dữ liệu thông tin chi tiết của sản phẩm.");
+            return;
+        }
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(Identity.ID))
+            {
+                ShowWarning("Bạn cần lưu thông tin nhận diện trước khi cập nhật chi tiết.");
+                return;
+            }
+
+            // check tồn tại sản phẩm
+            bool exists = await ProductService.ExistsAsync(Identity.ID);
+            if (!exists)
+            {
+                ShowWarning("Sản phẩm chưa tồn tại trong cơ sở dữ liệu. Vui lòng lưu Tab 1 trước.");
+                return;
+            }
+
+            // update
+            var ok = await ProductService.UpdateProductDetailInformationAsync(Identity.ID, Detail);
+            if (ok)
+            {
+                ShowSuccess("Cập nhật chi tiết sản phẩm thành công.");
+            }
+            else
+            {
+                ShowWarning("Không có thay đổi hoặc cập nhật thất bại.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Console.WriteLine(ex.ToString());
+            ShowWarning("Lỗi khi lưu thông tin chi tiết sản phẩm.", ex.Message);
+        }
+    }
+
+    async Task HandleSaveNewProduct()
+    {
+        if (!identityContext.Validate())
+        {
+            // await JS.InvokeVoidAsync("alert", "Vui lòng kiểm tra dữ liệu tab Nhận diện.");
+            ShowWarning("Vui lòng kiểm tra dữ liệu tab Nhận diện.");
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(Identity.ID))
+            Identity.ID = Guid.NewGuid().ToString();
+            step1BtnStr = "Đang lưu...";
+        try {
+            var check = IsEdit ? await ProductService.UpdateProductIdentityAsync(Identity) : await ProductService.AddNewProductAsync(Identity);
+            if (check)
+            {
+                step1BtnStr = "Đã lưu";
+                ShowSuccess(IsEdit ? "Cập nhật nhận diện thành công" : "Tạo sản phẩm thành công");
+                // await VisibleChanged.InvokeAsync(false);
+
+                if (OnSave.HasDelegate)
+                {
+                    // await OnSave.InvokeAsync(Identity.ToSanPham());
+                }
+            }
+
+        } catch (Exception ex)
+        {
+            // Console.WriteLine(ex.ToString());
+            ShowError("Lỗi khi lưu tab Nhận diện", ex.Message);
+        }
+    }
+
+    async Task SaveAsync()
+    {
+        // Validate cả 3 form
+        var v1 = identityContext.Validate();
+        var v2 = infoContext.Validate();
+        var v3 = detailContext.Validate();
+
+    }
+
+    void LoadFromEditItem(SanPham sp)
+{
+    // Tab 1: Nhận diện
+    Identity = new ProductIdentityModel
+    {
+        ID           = sp.MA_SP,
+        TenSanPham   = sp.TEN_SAN_PHAM,
+        MaHang       = sp.MA_HANG,
+        MaKhachHang  = sp.MA_KHACH_HANG,
+        MaLoHang     = sp.MA_LO_HANG,
+        MaNhomHang   = sp.MA_NHOM_HANG
+    };
+
+    // Tab 2: Thông tin sản phẩm
+    Info = new ProductInfoModel
+    {
+        LoaiBao        = sp.LOAI_BAO ?? "",
+
+        KTDenier       = sp.KT_DENIER,
+        KTSoiDoc       = sp.KT_SOI_DOC,
+        KTSoiNgang     = sp.KT_SOI_NGANG,
+        KTChieuDai     = sp.KT_CHIEU_DAI,
+        KTChieuRong    = sp.KT_CHIEU_RONG,
+        KTChieuCao     = sp.KT_CHIEU_CAO,
+
+        TCDenier       = sp.TC_DENIER,
+        TCSoiDoc       = sp.TC_SOI_DOC,
+        TCSoiNgang     = sp.TC_SOI_NGANG,
+        TCDuongKinh    = sp.TC_DUONG_KINH,
+        TCChieuCao     = sp.TC_CHIEU_CAO,
+
+        TCDDenier      = sp.TCD_DENIER,
+        TCDSoiDoc      = sp.TCD_SOI_DOC,
+        TCDSoiNgang    = sp.TCD_SOI_NGANG,
+        TCDDuongKinh   = sp.TCD_DUONG_KINH,
+        TCDChieuCao    = sp.TCD_CHIEU_CAO,
+
+        TrongTai       = sp.TRONG_TAI,
+
+        LinerDoDay     = sp.LINER_DO_DAY,
+        LinerKho       = sp.LINER_KHO,
+        LinerDai       = sp.LINER_DAI,
+        DoDayLiner     = sp.LINER_DO_DAY_STR ?? "",
+        ChieuRongLiner = sp.LINER_CHIEU_RONG_STR ?? "",
+        ChieuDaiLiner  = sp.LINER_CHIEU_DAI_STR ?? "",
+
+        Trang          = sp.TRANG ?? "",
+        MauVai         = sp.MAU_VAI ?? "",
+        CoTran         = sp.CO_TRAN ?? "",
+
+        CoDaiDay       = sp.CO_DAI_DAY ?? "",
+        CoChongPhinh   = sp.CO_CHONG_PHINH ?? "",
+        RongChongPhinh = sp.RONG_CHONG_PHINH ?? "",
+        CoChongXi      = sp.CO_CHONG_XI ?? "",
+        CoDayChongXi   = sp.CO_DAY_CHONG_XI ?? "",
+        CoMex          = sp.CO_MEX ?? "",
+        CoNham         = sp.CO_NHAM ?? "",
+        CoPeDay        = sp.CO_PE_DAY ?? "",
+        CoPallet       = sp.CO_PALLET ?? "",
+        GhiChu         = sp.GHI_CHU ?? ""
+    };
+
+    // Tab 3: Thông tin chi tiết
+    Detail = new ProductDetailModel
+    {
+        // Thân dài
+        TDRong        = sp.TD_RONG,
+        TDDai         = sp.TD_DAI,
+        TDDienTich    = sp.TD_DIEN_TICH,
+        TDSoLuong     = sp.TD_SO_LUONG,
+        TDTrongLuong  = sp.TD_TRONG_LUONG,
+
+        // Thân ngắn
+        TNRong        = sp.TN_RONG,
+        TNDai         = sp.TN_DAI,
+        TNDienTich    = sp.TN_DIEN_TICH,
+        TNSoLuong     = sp.TN_SO_LUONG,
+        TNTrongLuong  = sp.TN_TRONG_LUONG,
+
+        // Miệng
+        MRong         = sp.M_RONG,
+        MDai          = sp.M_DAI,
+        MDienTich     = sp.M_DIEN_TICH,
+        MSoLuong      = sp.M_SO_LUONG,
+        MTrongLuong   = sp.M_TRONG_LUONG,
+
+        // Tapchi Miệng
+        TCMRong       = sp.TCM_RONG,
+        TCMDai        = sp.TCM_DAI,
+        TCMDienTich   = sp.TCM_DIEN_TICH,
+        TCMSoLuong    = sp.TCM_SO_LUONG,
+        TCMTrongLuong = sp.TCM_TRONG_LUONG,
+
+        // Dây TC Miệng
+        DTCMRong      = sp.DTCM_RONG,
+        DTCMDai       = sp.DTCM_DAI,
+        DTCMSoLuong   = sp.DTCM_SO_LUONG,
+        DTCMTrongLuong= sp.DTCM_TRONG_LUONG,
+
+        // Chạc Miệng
+        CMLoaiChac    = sp.CM_LOAI_CHAC,
+        CMDai         = sp.CM_DAI,
+        CMSoLuong     = sp.CM_SO_LUONG,
+        CMTrongLuong  = sp.CM_TRONG_LUONG,
+
+        // Tapchi Đáy
+        TCDRong       = sp.TCD_RONG,
+        TCDDai        = sp.TCD_DAI,
+        TCDDienTich   = sp.TCD_DIEN_TICH,
+        TCDSoLuong    = sp.TCD_SO_LUONG,
+        TCDTrongLuong = sp.TCD_TRONG_LUONG,
+
+        // Tự công Miệng
+        TMRong        = sp.TM_RONG,
+        TMDai         = sp.TM_DAI,
+        TMDienTich    = sp.TM_DIEN_TICH,
+        TMSoLuong     = sp.TM_SO_LUONG,
+        TMTrongLuong  = sp.TM_TRONG_LUONG,
+
+        // Dây TC Đáy  (model của bạn đang dùng DTCD* hay DTDM* thì GIỮ NGUYÊN)
+        // KHÔNG sửa class => nếu class hiện tại là DTDMRong/DTCDDai:
+        DTDMRong      = sp.DTCD_RONG,   // map từ cột DB DTCD_RONG
+        DTCDDai       = sp.DTCD_DAI,
+        DTCDSoLuong   = sp.DTCD_SO_LUONG,
+        DTCDTrongLuong= sp.DTCD_TRONG_LUONG,
+
+        // Chạc Đáy
+        CDLoaiChac    = sp.CD_LOAI_CHAC,
+        CDDai         = sp.CD_DAI,
+        CDSoLuong     = sp.CD_SO_LUONG,
+        CDTrongLuong  = sp.CD_TRONG_LUONG,
+
+        // Tự công Đáy
+        TUDRong       = sp.TUD_RONG,
+        TUDDai        = sp.TUD_DAI,
+        TUDienTich    = sp.TUD_DIEN_TICH,
+        TUDSoLuong    = sp.TUD_SO_LUONG,
+        TUDTrongLuong = sp.TUD_TRONG_LUONG,
+
+        // Chạc Nâng
+        CNLoaiChac    = sp.CN_LOAI_CHAC,
+        CNMauChac     = sp.CN_MAU_CHAC ?? "",
+        CNRong        = sp.CN_RONG,
+        CNDai         = sp.CN_DAI,
+        CNSoLuong     = sp.CN_SO_LUONG,
+        CNTrongLuong  = sp.CN_TRONG_LUONG,
+
+        // Đai Nâng
+        DNLoaiChac    = sp.DN_LOAI_CHAC,
+        DNMauChac     = sp.DN_MAU_CHAC ?? "",
+        DNRong        = sp.DN_RONG,
+        DNDai         = sp.DN_DAI,
+        DNSoLuong     = sp.DN_SO_LUONG,
+        DNTrongLuong  = sp.DN_TRONG_LUONG,
+
+        // Đai Ngang
+        DNGLoaiChac   = sp.DNG_LOAI_CHAC,
+        DNGMauChac    = sp.DNG_MAU_CHAC ?? "",
+        DNGRong       = sp.DNG_RONG,
+        DNGDai        = sp.DNG_DAI,
+        DNGSoLuong    = sp.DNG_SO_LUONG,
+        DNGTrongLuong = sp.DNG_TRONG_LUONG,
+
+        // Pocket
+        PocketRong       = sp.POCKET_RONG,
+        PocketDai        = sp.POCKET_DAI,
+        PocketSoLuong    = sp.POCKET_SO_LUONG,
+        PocketTrongLuong = sp.POCKET_TRONG_LUONG,
+
+        // Đắp 10x10
+        Dap10x10SoLuong    = sp.DAP10x10_SO_LUONG,
+        Dap10x10TrongLuong = sp.DAP10x10_TRONG_LUONG,
+
+        // Chống bẩn
+        ChongBanRong       = sp.CB_RONG,
+        ChongBanDai        = sp.CB_DAI,
+        ChongBanDienTich   = sp.CB_DIEN_TICH,
+        ChongBanSoLuong    = sp.CB_SO_LUONG,
+        ChongBanTrongLuong = sp.CB_TRONG_LUONG,
+
+        // Liner (chi tiết)
+        LinerDoDayCt       = sp.LINER_DODAY_CT,
+        LinerKhoCt         = sp.LINER_KHO_CT,
+        LinerDaiCt         = sp.LINER_DAI_CT,
+        LinerSoLuongCt     = sp.LINER_SOLUONG_CT,
+        LinerTrongLuongCt  = sp.LINER_TRONGLUONG_CT,
+
+        // Chống phình
+        ChongPhinhRong       = sp.CP_RONG,
+        ChongPhinhDai        = sp.CP_DAI,
+        ChongPhinhDienTich   = sp.CP_DIEN_TICH,
+        ChongPhinhSoLuong    = sp.CP_SO_LUONG,
+        ChongPhinhTrongLuong = sp.CP_TRONG_LUONG,
+
+        // Chống xì
+        ChongXiChieuDai   = sp.CX_CHIEU_DAI,
+        ChongXiSoLuong    = sp.CX_SO_LUONG,
+        ChongXiTrongLuong = sp.CX_TRONG_LUONG
+    };
+}
+
+
+    void ShowSuccess(string title, string? message = null) =>
+    ToastService.ShowToast(new ToastOptions
+        {
+            ProviderName = "Overview",
+            ThemeMode = ToastThemeMode.Saturated,
+            RenderStyle = ToastRenderStyle.Success,
+            Title = title,
+            Text = message
+        });
+
+    void ShowError(string title, string? message = null) =>
+        ToastService.ShowToast(new ToastOptions
+            {
+                ProviderName = "Overview",
+                ThemeMode = ToastThemeMode.Saturated,
+                RenderStyle = ToastRenderStyle.Danger,
+                Title = title,
+                Text = message
+            });
+
+    void ShowWarning(string title, string? message = null) =>
+        ToastService.ShowToast(new ToastOptions
+            {
+                ProviderName = "Overview",
+                ThemeMode = ToastThemeMode.Saturated,
+                RenderStyle = ToastRenderStyle.Warning,
+                Title = title,
+                Text = message
+            });
+
+    void ShowInfo(string title, string? message = null) =>
+        ToastService.ShowToast(new ToastOptions
+            {
+                ProviderName = "Overview",
+                ThemeMode = ToastThemeMode.Saturated,
+                RenderStyle = ToastRenderStyle.Info,
+                Title = title,
+                Text = message
+            });
+
+}
